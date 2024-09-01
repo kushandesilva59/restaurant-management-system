@@ -10,11 +10,12 @@ const getUsers = async (req, res)=>{
 
 //create new user
 const createUser = async (req, res)=>{
+    console.log(req.body)
 
-    const {roll} = req.body
+    const {role, username, password, email} = req.body
 
     try{
-        const user = await User.create({roll})
+        const user = await User.create({role, username, password, email})
         res.status(200).json(user)
     }catch(error){
         res.status(400).json({error: error.message})
