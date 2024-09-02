@@ -5,10 +5,58 @@ import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
 import "../assets/css/login.css";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginUser = () => {
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/users/loggedin")
+      .then((res) => {
+        console.log(res);
+
+        if (res.data.valid) {
+          navigate("/");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const [showPassword, setShowPassword] = useState(false);
+  const initialValues = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+  const [formValues, setFormValues] = useState(initialValues);
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+    console.log(formValues);
+
+    axios
+      .post("http://localhost:4000/api/users/login", {
+        email: formValues.email,
+        password: formValues.password,
+        role: "customer",
+      })
+      .then((response) => {
+        console.log(response); // Handle the response data
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error posting data:", error); // Handle errors
+      });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
 
   return (
     <div className="login-main">
@@ -24,11 +72,20 @@ const LoginUser = () => {
             <h2>Welcome back!</h2>
             <p>Please enter your details</p>
             <form>
-              <input type="email" placeholder="Email" />
+              <input
+                type="email"
+                placeholder="Email"
+                onChange={handleChange}
+                name="email"
+                value={formValues.email}
+              />
               <div className="pass-input-div">
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
+                  onChange={handleChange}
+                  name="password"
+                  value={formValues.password}
                 />
                 {showPassword ? (
                   <FaEyeSlash
@@ -57,7 +114,7 @@ const LoginUser = () => {
                 </a>
               </div>
               <div className="login-center-buttons">
-                <button type="button">Log In</button>
+                <button onClick={loginHandler}>Log In</button>
                 <button type="button">
                   <img src={GoogleSvg} alt="" />
                   Log In with Google

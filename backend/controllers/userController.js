@@ -102,6 +102,7 @@ const login = async (req, res) => {
 
   if (user) {
     req.session.username = user.username;
+    req.session.email = user.email;
 
     return res.status(200).json({ Login: true });
   } else {
