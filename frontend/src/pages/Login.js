@@ -31,6 +31,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
+  
   const loginHandler = () => {
     console.log(email, password);
 
@@ -52,7 +53,7 @@ const Login = () => {
   return (
     <div>
       Login
-      <form>
+      <form >
         <input
           type="email"
           onChange={(e) => emailHandler(e.target.value)}
