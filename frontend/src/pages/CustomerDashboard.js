@@ -4,7 +4,17 @@ import myImage2 from "../assets/images/meal.jpg";
 import { useEffect, useState } from "react";
 
 const CustomerDashboard = () => {
-  const [name, setName] = useState("");
+  const initValues = {
+    username: "",
+    userEmail: "",
+    date: "",
+    time: "",
+    guestCount: "",
+    specialReq: "",
+  };
+
+  const [values, setValues] = useState(initValues);
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     axios
@@ -15,6 +25,41 @@ const CustomerDashboard = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    setFormErrors(validate(values));
+    console.log(values);
+  };
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.username) {
+      errors.username = "Username is required!";
+    }
+    if (!values.userEmail) {
+      errors.userEmail = "Email is required!";
+    } else if (!regex.test(values.userEmail)) {
+      errors.userEmail = "This is not a valid email format!";
+    }
+    if (!values.date) {
+      errors.date = "Date is required";
+    }
+    if (!values.time) {
+      errors.time = "Time is required";
+    }
+    if (!values.guestCount) {
+      errors.guestCount = "Count is required";
+    }
+
+    return errors;
+  };
+
   return (
     <div className="customer-page">
       <div className="hero-section">
@@ -23,7 +68,7 @@ const CustomerDashboard = () => {
         </div>
         <div className="container">
           <div className="hero-article-wrapper">
-            <h4>KUSH's Place</h4>
+            <h4>Where International Cuisine Meets Serene Ambiance</h4>
 
             <button>SEE MENU</button>
           </div>
@@ -39,19 +84,35 @@ const CustomerDashboard = () => {
                   <label>Date</label>
                   <input
                     type="date"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name="date"
+                    value={values.date}
+                    onChange={handleChange}
                     placeholder="Name"
                   />
+                  <p>{formErrors.date}</p>
                 </div>
 
                 <div className="form-item">
                   <label>Time</label>
                   <input
                     type="time"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name="time"
+                    value={values.time}
+                    onChange={handleChange}
                     placeholder="Name"
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-item">
+                  <label>Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
+                    placeholder="Kamal de silva"
                   />
                 </div>
 
@@ -59,42 +120,22 @@ const CustomerDashboard = () => {
                   <label>Party Size</label>
                   <input
                     type="number"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
+                    name="guestCount"
+                    value={values.guestCount}
+                    onChange={handleChange}
+                    placeholder="4"
                   />
                 </div>
               </div>
 
               <div className="form-row">
-                <div className="form-item">
-                  <label>Full Name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                  />
-                </div>
-
                 <div className="form-item">
                   <label>Email</label>
                   <input
                     type="email"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-item">
-                  <label>Plans For</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name="userEmail"
+                    value={values.userEmail}
+                    onChange={handleChange}
                     placeholder="Name"
                   />
                 </div>
@@ -105,14 +146,19 @@ const CustomerDashboard = () => {
                   <label>Any Special Request?</label>
                   <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name="specialReq"
+                    value={values.specialReq}
+                    onChange={handleChange}
                     placeholder="Name"
                   />
                 </div>
               </div>
 
-              <button>Reserve a Table</button>
+              <div className="button-wrapper">
+                <button type="button" onClick={handleSubmit}>
+                  Reserve a Table
+                </button>
+              </div>
             </form>
           </div>
         </div>

@@ -91,7 +91,7 @@
   outline: none;
 }
 
-form button[type='button'] {
+.google-button{
   width: 100%;
   padding: 16px;
   border: none;

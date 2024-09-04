@@ -117,7 +117,7 @@ const LoginUser = () => {
               </div>
               <div className="login-center-buttons">
                 <button onClick={loginHandler}>Log In</button>
-                <button type="button">
+                <button type="button" className="google-button">
                   <img src={GoogleSvg} alt="" />
                   Log In with Google
                 </button>

@@ -1,6 +1,5 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
-const { use } = require("../routes/userRoute");
 
 //get all users
 const getUsers = async (req, res) => {

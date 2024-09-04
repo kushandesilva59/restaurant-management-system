@@ -9,6 +9,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 
 const usersRoutes = require("./routes/userRoute");
+const tableReservationRoute = require("./routes/tableReservationRoute");
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/users", usersRoutes);
+app.use("/api/table-reservations", tableReservationRoute);
 
 //connect to db
 mongoose
