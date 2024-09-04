@@ -3,7 +3,6 @@
 }
 
 .signup-wrapper {
-    /* background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDhUqPER_0jipPQQWrTGBA8THs5X_ujJbebTr7CIBUjS9eybuBpsIHBucX8tW1vbLijCw&usqp=CAU); */
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -11,7 +10,6 @@
 }
 
 .container {
-
     display: flex !important;
     flex-direction: column;
     justify-content: center;

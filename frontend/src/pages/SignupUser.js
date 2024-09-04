@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../assets/css/signup.css";
+// import "../assets/css/signup.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,7 @@ const SignupUser = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    role:""
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -74,7 +75,7 @@ const SignupUser = () => {
         password: formValues.password,
         confirmPassword: formValues.confirmPassword,
         username: formValues.username,
-        role: "customer",
+        role: formValues.role,
       })
       .then((response) => {
         console.log(response.data); // Handle the response data
@@ -143,6 +144,26 @@ const SignupUser = () => {
               />
             </div>
             <p>{formErrors.confirmPassword}</p>
+
+            <label>
+              <input
+                type="radio"
+                name="role"
+                value="CUSTOMER"
+                onChange={handleChange}
+              />
+              Customer
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="role"
+                value="STAFF"
+                onChange={handleChange}
+              />
+              Staff
+            </label>
             <button className="fluid ui login-button blue">Submit</button>
           </div>
         </form>

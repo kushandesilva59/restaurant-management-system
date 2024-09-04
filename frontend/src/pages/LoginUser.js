@@ -78,6 +78,7 @@ const LoginUser = () => {
                 onChange={handleChange}
                 name="email"
                 value={formValues.email}
+                className="login-input"
               />
               <div className="pass-input-div">
                 <input
@@ -86,6 +87,7 @@ const LoginUser = () => {
                   onChange={handleChange}
                   name="password"
                   value={formValues.password}
+                  className="login-input"
                 />
                 {showPassword ? (
                   <FaEyeSlash

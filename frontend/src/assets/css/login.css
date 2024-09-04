@@ -68,10 +68,7 @@
   margin-bottom: 40px;
 }
 
-form input[type='email'],
-form input[type='password'],
-form input[type='text']
- {
+.login-input{
   width: 100%;
   padding: 16px;
   margin-bottom: 16px;

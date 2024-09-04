@@ -1,0 +1,276 @@
+:root{
+    --background-color:#fff;
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo{
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: red;
+
+}
+
+.navbar{
+    height: 55px;
+    background-color: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links>a{
+    text-decoration: none;
+    margin-left: 10px;
+    color: white;
+
+}
+
+.nav-container{
+    padding-inline: 5vw;
+}
+
+.sidebar-btn{
+    height: 28px;
+    width: 30px;
+    position: relative;
+}
+
+.sidebar-btn.active> .bar:first-child{
+    background-color: rgb(255, 255, 255);
+    transform: translate(0, -50%) scale(1) rotate(45deg);
+    top: 50%;
+    transform-origin: center;
+}
+.sidebar-btn.active> .bar:nth-child(2){
+    background-color: rgb(255, 255, 255);
+    transform: translate(0, -50%) scale(0);
+    top: 50%;
+    transform-origin: center;
+
+}
+.sidebar-btn.active> .bar:nth-child(3){
+    background-color: white;
+    transform: translate(0, -50%) scale(1) rotate(-45deg);
+    top: 50%;
+    transform-origin: center;
+}
+
+.bar{
+    border-radius: 5px;
+    height: 8px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+}
+
+.bar:first-child{
+    top: 0;
+}
+
+.bar:nth-child(2){
+    top: 50%;
+    transform-origin: right;
+    transform: scaleX(.8) translateY(-50%);
+}
+
+.bar:nth-child(3){
+    top: 100%;
+    transform-origin: right;
+    transform: scaleX(1.1) translateY(-100%);
+}
+
+.hero-section{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.hero-section .image-wrapper{
+    height: 100%;
+}
+
+.hero-section>.container{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.hero-section .hero-article-wrapper{
+    flex: 1;
+}
+
+.hero-section .form-wrapper{
+    flex: 1;
+}
+
+.hero-section img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+.hero-section::before{
+    content: '';
+    background:rgb(46, 51, 100);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+}
+
+
+
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+.customer-page .container{
+    padding-inline: 5vw;
+}
+
+.collection-container{
+    padding: 30px 5vw;
+}
+
+.customer-page .card{
+    position: relative;
+    height: max-content;
+    width: max-content;
+}
+
+.customer-page .card>.image-wrapper::before{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+background: linear-gradient(180deg, rgba(0, 0, 0, 0) 31.25%, #000000 78.12%);
+
+}
+
+.collection-container .text-wrapper{
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    right: 50%;
+    transform: translateX(50%);
+    text-align: center;
+}
+
+.customer-page .text-wrapper>h6{
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.customer-page .text-wrapper>h5{
+    font-size: 40px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.customer-page .text-wrapper>button{
+    padding: 10px 40px;
+    background: red;
+    border: 0;
+    outline: 0;
+    color: white;
+    font-weight: 700;
+}
+
+.customer-page .card-set{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.customer-page .image-and-article-wrapper{
+    background-color: #EEEE;
+    padding: 50px 0;
+}
+
+.customer-page .image-and-article-wrapper>.container{
+    display: flex;
+}
+
+.customer-page .container>.image-wrapper{
+    flex: 1;
+}
+
+.customer-page .container>.article-wrapper{
+    flex: 1;
+    padding-top: 20px;
+}
+
+.customer-page .container>.article-wrapper>h6{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.customer-page .container>.article-wrapper>h5{
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 41px;
+    margin: 10px 0 15px 0;
+}
+
+.customer-page .container>.article-wrapper>p{
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.customer-page .container>.article-wrapper>button{
+ padding: 10px 40px;
+    background: red;
+    border: 0;
+    outline: 0;
+    color: white;
+    font-weight: 700;
+    border-radius: 100px;
+}
+
+
+.customer-page .container>.image-wrapper>img{
+    width: 600px;
+    height: 500px;
+    object-fit: cover;
+    background-size: cover;
+}
+
+.booking-form input{
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid white;
+}
+
+.form-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.form-item{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-item input{
+    padding: 10px 0;
+}
+
+.form-item input::foccus{
+    border: none;
+    outline: none;
+}
+

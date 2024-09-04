@@ -1,17 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
-import Navbar from "./components/Navbar";
+import Nawbar from "./components/Nawbar";
 import Login from "./pages/Login";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import SignupUser from "./pages/SignupUser";
 import LoginUser from "./pages/LoginUser";
+import StaffDashboard from "./pages/StaffDashboard";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Navbar /> */}
+      <Nawbar />
         <div className="pages">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -20,7 +21,9 @@ function App() {
 
             <Route path="/login" element={<LoginUser />} />
 
-            <Route path="/loggedin" element={<CustomerDashboard />} />
+            <Route path="/customer" element={<CustomerDashboard />} />
+
+            <Route path="/staff" element={<StaffDashboard />} />
           </Routes>
         </div>
       </BrowserRouter>
