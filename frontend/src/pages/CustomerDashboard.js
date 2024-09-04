@@ -233,17 +233,21 @@ const CustomerDashboard = () => {
           </div>
 
           <div className="article-wrapper">
-            <h6>WELCOME TO GLP TRANSLATIONS</h6>
+            <h6>OUR STORY</h6>
 
-            <h5>YOUR TRUSTED PARTNER FOR ALL YOUR TRAVEL NEEDS</h5>
+            <h5>From Local Favorite to International Cuisine Destination</h5>
 
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididuntLorem ipsum dolor
-              sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit, sed do eiusmod tempor incididunt
+              ABC Restaurant and Bar is more than just a place to eat – it's
+              a dining experience that combines quality food, exceptional
+              service, and a stunning location. Our commitment to serving
+              international cuisine reflects our passion for exploring different
+              cultures and flavors, and our dedication to providing a diverse
+              and exciting menu for our customers. But it's not just about the
+              food – our ambiance, with its tranquil setting beside the Bentota
+              River, offers a peaceful escape from the hustle and bustle of
+              everyday life. Come and see for yourself why Pier88 is one of the
+              best restaurants in Aluthgama, Sri Lanka.
             </p>
 
             <button>READ MORE ABOUT US</button>

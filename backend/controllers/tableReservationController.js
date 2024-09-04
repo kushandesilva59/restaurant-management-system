@@ -36,7 +36,50 @@ const createReservation = async (req, res) => {
   console.log(req.body);
 };
 
+const getReservationByEmailAndDate = async (req, res) => {
+  const { userEmail, date } = req.body;
+  console.log(userEmail);
+
+  const reservation = await TableReservation.findOne({ userEmail, date });
+
+  if (!reservation) {
+    return res.status(400).json({ error: "No reservation found!..." });
+  }
+
+  res.status(200).json(reservation);
+};
+
+const getReservationByDate = async (req, res) => {
+  const { date } = req.body;
+  console.log(date);
+
+  const reservation = await TableReservation.find({ date });
+
+  if (!reservation) {
+    return res.status(400).json({ error: "No reservation found!..." });
+  }
+
+  res.status(200).json(reservation);
+};
+
+const getReservationByEmail = async (req, res) => {
+  const { userEmail } = req.body;
+  console.log(userEmail);
+
+  const reservation = await TableReservation.find({ userEmail });
+  console.log(reservation)
+
+  if (!reservation) {
+    return res.status(400).json({ error: "No reservation found!..." });
+  }
+
+  res.status(200).json(reservation);
+};
+
 module.exports = {
   getTableReservations,
   createReservation,
+  getReservationByEmailAndDate,
+  getReservationByDate,
+  getReservationByEmail,
 };

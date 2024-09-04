@@ -34,8 +34,6 @@ app.use(
 app.use(bodyParser.json())
 
 app.use((req, res, next) => {
-  console.log(req.path);
-  console.log(req.method);
   next();
 });
 

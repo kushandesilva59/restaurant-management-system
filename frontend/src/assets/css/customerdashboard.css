@@ -203,6 +203,15 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 31.25%, #000000 78.12%);
     display: flex;
 }
 
+.customer-page .image-and-article-wrapper .article-wrapper h5{
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+}
+
+.customer-page .image-and-article-wrapper .article-wrapper p{
+    font-weight: 400;
+}
+
 .customer-page .container>.image-wrapper{
     flex: 1;
 }
