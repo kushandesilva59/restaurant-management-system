@@ -32,8 +32,20 @@ const CustomerDashboard = () => {
   };
 
   const handleSubmit = () => {
-    setFormErrors(validate(values));
     console.log(values);
+    setFormErrors(validate(values));
+
+    console.log(Object.keys(formErrors));
+    console.log(formErrors);
+
+    axios
+      .post("http://localhost:4000/api/table-reservations/reserve",values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+
+    
   };
 
   const validate = (values) => {
@@ -75,7 +87,11 @@ const CustomerDashboard = () => {
 
           <div className="form-wrapper">
             <div className="title-wrapper">
-              <h6>Save Time, Tasty Foods.</h6>
+              <h4>Save your valuable time</h4>
+              <h6>
+                SEND US A MESSAGE AND One of our representative will get back to
+                you ASAP
+              </h6>
             </div>
 
             <form className="booking-form">
@@ -101,6 +117,7 @@ const CustomerDashboard = () => {
                     onChange={handleChange}
                     placeholder="Name"
                   />
+                  <p>{formErrors.time}</p>
                 </div>
               </div>
 
@@ -114,6 +131,7 @@ const CustomerDashboard = () => {
                     onChange={handleChange}
                     placeholder="Kamal de silva"
                   />
+                  <p>{formErrors.username}</p>
                 </div>
 
                 <div className="form-item">
@@ -125,6 +143,7 @@ const CustomerDashboard = () => {
                     onChange={handleChange}
                     placeholder="4"
                   />
+                  <p>{formErrors.guestCount}</p>
                 </div>
               </div>
 
@@ -138,6 +157,7 @@ const CustomerDashboard = () => {
                     onChange={handleChange}
                     placeholder="Name"
                   />
+                  <p>{formErrors.userEmail}</p>
                 </div>
               </div>
 
@@ -150,6 +170,7 @@ const CustomerDashboard = () => {
                     value={values.specialReq}
                     onChange={handleChange}
                     placeholder="Name"
+                    className="special-input"
                   />
                 </div>
               </div>

@@ -290,7 +290,11 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 31.25%, #000000 78.12%);
     border: none;
     background-color: transparent;
     border-bottom: 2px solid black;
-    margin: 10px 10px 35px 0;
+    padding: 15px 5px;
+}
+
+.special-input{
+    height: 80px;
 }
 
 .form-row{
@@ -298,6 +302,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 31.25%, #000000 78.12%);
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+        margin: 10px 10px 35px 0;
 }
 
 .form-item{
@@ -306,14 +311,11 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 31.25%, #000000 78.12%);
     width: 100%;
 }
 
-.form-item label{
-    /* color: #FFF; */
+.form-item p{
+    color: red;
 }
 
-.form-item input{
-    padding: 15px 0;
-    /* color: #FFF; */
-}
+
 
 .form-item input::foccus{
     border: none;
