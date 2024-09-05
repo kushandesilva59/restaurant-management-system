@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "./Menu";
 import Categories from "./Categories";
 import items from "./data";
-import { CartProvider, useCart } from "react-use-cart";
+import { CartProvider } from "react-use-cart";
 import { Cart } from "./Cart";
+import axios from "axios";
 
 
 
@@ -16,7 +17,15 @@ const MenuPage = () => {
   const [activeCategory, setActiveCategory] = useState("");
   const [categories, setCategories] = useState(allCategories);
 
-   const { addItem } = useCart();
+  // useEffect(()=>{
+  //    axios
+  //      .get("http://localhost:4000/api/users/loggedin")
+  //      .then((res) => {
+  //        console.log(res);
+  //      })
+  //      .catch((err) => console.log(err));
+  // },[])
+
 
   const filterItems = (category) => {
     setActiveCategory(category);

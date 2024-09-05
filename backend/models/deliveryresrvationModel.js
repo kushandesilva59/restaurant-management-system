@@ -30,10 +30,6 @@ const deliveryReservationSchema = new Schema(
       type: String,
       required: true,
     },
-    cardName: {
-      type: String,
-      required: true,
-    },
     address: {
       type: String,
       required: true,
@@ -59,6 +55,10 @@ const deliveryReservationSchema = new Schema(
       type: [orderDetailSchema],
       required: true,
     },
+    totalPrice:{
+        type:Number,
+        required:true
+    }
   },
   { timestamps: true }
 );

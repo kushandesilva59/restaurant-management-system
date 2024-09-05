@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const usersRoutes = require("./routes/userRoute");
 const tableReservationRoute = require("./routes/tableReservationRoute");
 const deliveryReservationRoute = require("./routes/deliveryReservationRoute");
+const productRoute = require("./routes/productRoute");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use((req, res, next) => {
 app.use("/api/users", usersRoutes);
 app.use("/api/table-reservations", tableReservationRoute);
 app.use("/api/delivery-reservations", deliveryReservationRoute);
+app.use("/api/products", productRoute);
 
 //connect to db
 mongoose
