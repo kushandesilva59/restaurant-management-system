@@ -7,6 +7,7 @@ import CustomerDashboard from "./pages/CustomerDashboard";
 import SignupUser from "./pages/SignupUser";
 import LoginUser from "./pages/LoginUser";
 import StaffDashboard from "./pages/StaffDashboard";
+import MenuPage from "./pages/MenuPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/customer" element={<CustomerDashboard />} />
 
             <Route path="/staff" element={<StaffDashboard />} />
+            <Route path="/menu" element={<MenuPage />} />
           </Routes>
         </div>
       </BrowserRouter>
