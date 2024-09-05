@@ -8,6 +8,7 @@ import SignupUser from "./pages/SignupUser";
 import LoginUser from "./pages/LoginUser";
 import StaffDashboard from "./pages/StaffDashboard";
 import MenuPage from "./pages/MenuPage";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
             <Route path="/staff" element={<StaffDashboard />} />
             <Route path="/menu" element={<MenuPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
           </Routes>
         </div>
       </BrowserRouter>

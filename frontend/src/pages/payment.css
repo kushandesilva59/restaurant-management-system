@@ -1,0 +1,76 @@
+.payment-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1f242d;
+    padding: 25px;
+}
+
+.payment-container form{
+        width: 700px;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 10px;
+}
+
+.payment-container form .payment-row{
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.payment-container form .column{
+   flex: 1 1 250px; 
+}
+
+.payment-container form .column .flex{
+    display: flex;
+    gap: 15px;
+}
+
+.payment-container form .column .flex .input-box{
+    margin-top: 5px;
+}
+
+.payment-container form .column .payment-title{
+    font-size: 20px;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.payment-container form .column .input-box{
+    margin: 15px 0;
+}
+
+.payment-container form .column .input-box span{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.payment-container form .column .input-box input{
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.payment-container form button{
+    width: 100%;
+    padding: 15px;
+    background-color: #814321;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    font-size: 17px;
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.payment-container form button:hover{
+    background-color: aqua;
+}
