@@ -11,6 +11,8 @@ const Nawbar = () => {
                 <a href="/signup">About</a>
                 <a href="#">Services</a>
                 <a href='/customer'>Customer</a>
+                <a href='/staff'>Staff Login</a>
+                
             </div>
 
             <div className='sidebar-btn active'>

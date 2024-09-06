@@ -3,6 +3,8 @@ import myImage from "../assets/images/image.jpg";
 import myImage2 from "../assets/images/meal.jpg";
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 const CustomerDashboard = () => {
   const initValues = {
     username: "",
@@ -15,15 +17,8 @@ const CustomerDashboard = () => {
 
   const [values, setValues] = useState(initValues);
   const [formErrors, setFormErrors] = useState({});
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/users/loggedin")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [sendAPI, setSendAPI] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,21 +26,35 @@ const CustomerDashboard = () => {
     setValues({ ...values, [name]: value });
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
-    console.log(values);
+
     setFormErrors(validate(values));
+    setIsSubmit(true);
+    setSendAPI(true)
 
-    console.log(Object.keys(formErrors));
-    console.log(formErrors);
+    // check if user logged in
 
-    axios
-      .post("http://localhost:4000/api/table-reservations/reserve",values)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    if (sendAPI)  {
+      axios
+        .get("http://localhost:4000/api/users/loggedin")
+        .then((res) => {
+          console.log(res);
 
-    
+          if (!res.data.valid) {
+            //navigate("/customer/login");
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+
+    // axios
+    //   .post("http://localhost:4000/api/table-reservations/reserve",values)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   const validate = (values) => {
@@ -71,6 +80,13 @@ const CustomerDashboard = () => {
 
     return errors;
   };
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(initValues);
+    }
+  }, [formErrors, initValues, isSubmit]);
 
   return (
     <div className="customer-page">
@@ -238,16 +254,16 @@ const CustomerDashboard = () => {
             <h5>From Local Favorite to International Cuisine Destination</h5>
 
             <p>
-              ABC Restaurant and Bar is more than just a place to eat – it's
-              a dining experience that combines quality food, exceptional
-              service, and a stunning location. Our commitment to serving
-              international cuisine reflects our passion for exploring different
-              cultures and flavors, and our dedication to providing a diverse
-              and exciting menu for our customers. But it's not just about the
-              food – our ambiance, with its tranquil setting beside the Bentota
-              River, offers a peaceful escape from the hustle and bustle of
-              everyday life. Come and see for yourself why Pier88 is one of the
-              best restaurants in Aluthgama, Sri Lanka.
+              ABC Restaurant and Bar is more than just a place to eat – it's a
+              dining experience that combines quality food, exceptional service,
+              and a stunning location. Our commitment to serving international
+              cuisine reflects our passion for exploring different cultures and
+              flavors, and our dedication to providing a diverse and exciting
+              menu for our customers. But it's not just about the food – our
+              ambiance, with its tranquil setting beside the Bentota River,
+              offers a peaceful escape from the hustle and bustle of everyday
+              life. Come and see for yourself why Pier88 is one of the best
+              restaurants in Aluthgama, Sri Lanka.
             </p>
 
             <button>READ MORE ABOUT US</button>

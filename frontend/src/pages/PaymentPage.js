@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "./payment.css";
 import cardImg from "../assets/images/card_img.png";
 
@@ -8,25 +8,80 @@ const PaymentPage = () => {
     name: "",
     email: "",
     address: "",
-    city: "",
+    expmonth: "",
     state: "",
     zipcode: "",
     cardname: "",
     cardnumber: "",
-    expmonth: "",
+    expyear: "",
     contact: "",
     cvv: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     console.log(formValues);
+    setFormErrors(validate(formValues));
+    setIsSubmit(true)
+    console.log(formErrors);
   };
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.name) {
+      errors.name = "Name is required!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+    if (!values.address) {
+      errors.address = "Address is required";
+    }
+    if (!values.expmonth) {
+      errors.expmonth = "Expire month is required";
+    }
+    if (!values.expyear) {
+      errors.expyear = "Expire year is required";
+    }
+    if (!values.state) {
+      errors.state = "State is required";
+    }
+    if (!values.cardname) {
+      errors.cardname = "Card name is required";
+    }
+    if (!values.cardnumber) {
+      errors.cardnumber = "Card number is required";
+    }
+    if (!values.contact) {
+      errors.contact = "Contact number is required";
+    }
+    if (!values.zipcode) {
+      errors.zipcode = "Zip code is required";
+    }
+    if (!values.cvv) {
+      errors.cvv = "CVV is required";
+    }
+
+    return errors;
+  };
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formValues);
+    }
+  }, [formErrors, formValues, isSubmit]);
 
   return (
     <div className="payment-section">
@@ -36,7 +91,7 @@ const PaymentPage = () => {
             <div className="column">
               <h3 className="payment-title">Billing Address</h3>
               <div className="input-box">
-                <span>Full Name:</span>
+                <span>Name:</span>
                 <input
                   type="text"
                   name="name"
@@ -44,6 +99,7 @@ const PaymentPage = () => {
                   value={formValues.name}
                   onChange={handleChange}
                 />
+                <p>{formErrors.name}</p>
               </div>
 
               <div className="input-box">
@@ -55,6 +111,7 @@ const PaymentPage = () => {
                   value={formValues.email}
                   onChange={handleChange}
                 />
+                <p>{formErrors.email}</p>
               </div>
 
               <div className="input-box">
@@ -66,17 +123,19 @@ const PaymentPage = () => {
                   value={formValues.address}
                   onChange={handleChange}
                 />
+                <p>{formErrors.address}</p>
               </div>
 
               <div className="input-box">
-                <span>City :</span>
+                <span>Exp. Year :</span>
                 <input
-                  type="text"
-                  name="city"
-                  placeholder="Aluthgama"
-                  value={formValues.city}
+                  type="number"
+                  name="expyear"
+                  placeholder="2025"
+                  value={formValues.expyear}
                   onChange={handleChange}
                 />
+                <p>{formErrors.expyear}</p>
               </div>
 
               <div className="flex">
@@ -89,6 +148,7 @@ const PaymentPage = () => {
                     value={formValues.state}
                     onChange={handleChange}
                   />
+                  <p>{formErrors.state}</p>
                 </div>
 
                 <div className="input-box">
@@ -100,6 +160,7 @@ const PaymentPage = () => {
                     value={formValues.zipcode}
                     onChange={handleChange}
                   />
+                  <p>{formErrors.zipcode}</p>
                 </div>
               </div>
             </div>
@@ -120,6 +181,7 @@ const PaymentPage = () => {
                   value={formValues.cardname}
                   onChange={handleChange}
                 />
+                <p>{formErrors.cardname}</p>
               </div>
 
               <div className="input-box">
@@ -131,6 +193,7 @@ const PaymentPage = () => {
                   value={formValues.cardnumber}
                   onChange={handleChange}
                 />
+                <p>{formErrors.cardnumber}</p>
               </div>
 
               <div className="input-box">
@@ -142,6 +205,7 @@ const PaymentPage = () => {
                   value={formValues.expmonth}
                   onChange={handleChange}
                 />
+                <p>{formErrors.expmonth}</p>
               </div>
 
               <div className="flex">
@@ -154,6 +218,7 @@ const PaymentPage = () => {
                     value={formValues.contact}
                     onChange={handleChange}
                   />
+                  <p>{formErrors.contact}</p>
                 </div>
 
                 <div className="input-box">
@@ -165,6 +230,7 @@ const PaymentPage = () => {
                     value={formValues.cvv}
                     onChange={handleChange}
                   />
+                  <p>{formErrors.cvv}</p>
                 </div>
               </div>
             </div>

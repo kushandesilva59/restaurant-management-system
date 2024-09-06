@@ -6,26 +6,12 @@ import { CartProvider } from "react-use-cart";
 import { Cart } from "./Cart";
 import axios from "axios";
 
-
-
-
-
 const allCategories = ["all", ...new Set(items.map((item) => item.category))];
 
 const MenuPage = () => {
   const [menuItems, setMenuItems] = useState(items);
   const [activeCategory, setActiveCategory] = useState("");
   const [categories, setCategories] = useState(allCategories);
-
-  // useEffect(()=>{
-  //    axios
-  //      .get("http://localhost:4000/api/users/loggedin")
-  //      .then((res) => {
-  //        console.log(res);
-  //      })
-  //      .catch((err) => console.log(err));
-  // },[])
-
 
   const filterItems = (category) => {
     setActiveCategory(category);
@@ -51,7 +37,7 @@ const MenuPage = () => {
 
         <CartProvider>
           <Menu items={menuItems} />
-          <Cart/>
+          <Cart />
         </CartProvider>
       </section>
     </main>

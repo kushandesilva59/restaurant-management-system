@@ -15,7 +15,7 @@ const Home = () => {
             console.log(res);
 
             if(!res.data.valid){
-                navigate('/login')
+                navigate('/customer/login')
             }
           })
           .catch((err) => console.log(err));

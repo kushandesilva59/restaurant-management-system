@@ -14,18 +14,19 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <Nawbar />
+        <Nawbar />
         <div className="pages">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<CustomerDashboard />} />
 
             <Route path="/signup" element={<SignupUser />} />
 
             <Route path="/login" element={<LoginUser />} />
 
-            <Route path="/customer" element={<CustomerDashboard />} />
-
+            
             <Route path="/staff" element={<StaffDashboard />} />
+
+
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/payment" element={<PaymentPage />} />
           </Routes>
