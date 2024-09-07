@@ -102,10 +102,12 @@ const login = async (req, res) => {
   const user = await User.findOne({ email: email });
 
   if (user) {
-    req.session.username = user.username;
-    req.session.email = user.email;
+    // req.session.username = user.username;
+    // req.session.email = user.email;
 
-    return res.status(200).json({ Login: true });
+    req.session.user = user;
+
+    return res.status(200).json({ Login: true, user: user });
   } else {
     return res
       .status(400)
@@ -116,8 +118,8 @@ const login = async (req, res) => {
 
 const loggedin = async (req, res) => {
   console.log(req.session);
-  if (req.session.username) {
-    return res.json({ valid: true, username: req.session.username });
+  if (req.session.user) {
+    return res.json({ valid: true, user: req.session.user });
   } else {
     return res.json({ valid: false });
   }
