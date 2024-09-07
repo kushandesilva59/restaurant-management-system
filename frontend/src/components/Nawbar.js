@@ -11,7 +11,7 @@ const Nawbar = () => {
                 <a href="/signup">About</a>
                 <a href="#">Services</a>
                 <a href='/customer'>Customer</a>
-                <a href='/staff'>Staff Login</a>
+                <a href='/login'>Staff Login</a>
                 
             </div>
 

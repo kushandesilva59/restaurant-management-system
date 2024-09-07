@@ -7,6 +7,8 @@ import { FaEyeSlash } from "react-icons/fa6";
 import "../assets/css/login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const LoginUser = () => {
   useEffect(() => {
@@ -15,8 +17,12 @@ const LoginUser = () => {
       .then((res) => {
         console.log(res);
 
-        if (res.data.valid) {
+        if (res.data.user.role === "STAFF") {
+          console.log(res.data);
+          navigate("/staff");
+        } else if (res.data.user.role === "CUSTOMER") {
           navigate("/");
+        } else if (res.data.user.role === "ADMIN") {
         }
       })
       .catch((err) => console.log(err));
@@ -36,6 +42,7 @@ const LoginUser = () => {
 
   const loginHandler = (e) => {
     e.preventDefault();
+
     console.log(formValues);
 
     axios
@@ -44,12 +51,25 @@ const LoginUser = () => {
         password: formValues.password,
         role: "customer",
       })
-      .then((response) => {
-        console.log(response); // Handle the response data
-        navigate("/");
+      .then((res) => {
+        console.log(res.data); // Handle the response data
+
+        toast.success("Login Success", {
+          onClose: () => {
+
+            if (res.data.user.role === "STAFF") {
+              console.log(res.data);
+              navigate("/staff");
+            } else if (res.data.user.role === "CUSTOMER") {
+              navigate("/");
+            } else if (res.data.user.role === "ADMIN") {
+            }
+          },
+        });
       })
       .catch((error) => {
         console.error("Error posting data:", error); // Handle errors
+        toast.error("Login Failed");
       });
   };
 
@@ -130,6 +150,7 @@ const LoginUser = () => {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
