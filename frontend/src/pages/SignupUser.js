@@ -11,7 +11,7 @@ const SignupUser = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role:""
+    role: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -29,6 +29,17 @@ const SignupUser = () => {
   };
 
   useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/users/loggedin")
+      .then((res) => {
+        console.log(res);
+
+        if (res.data.valid) {
+          navigate("/");
+        }
+      })
+      .catch((err) => console.log(err));
+
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);

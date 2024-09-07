@@ -9,13 +9,13 @@ const getUsers = async (req, res) => {
 };
 
 //create new user
-const createUser = async (req, res) => {
+const signup = async (req, res) => {
   const { role, username, password, email, confirmPassword } = req.body;
 
   const user = await User.findOne({ email: email });
 
   if (user) {
-    res.status(400).json({message: "Email is exists !..."})
+    res.status(400).json({ message: "Email is exists !..." });
   } else {
     try {
       const user = await User.create({
@@ -25,7 +25,9 @@ const createUser = async (req, res) => {
         email,
         confirmPassword,
       });
-      res.status(200).json(user);
+
+      
+      res.status(200).json({ user: user });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -113,6 +115,7 @@ const login = async (req, res) => {
 };
 
 const loggedin = async (req, res) => {
+  console.log(req.session);
   if (req.session.username) {
     return res.json({ valid: true, username: req.session.username });
   } else {
@@ -122,7 +125,7 @@ const loggedin = async (req, res) => {
 
 module.exports = {
   getUsers,
-  createUser,
+  signup,
   deleteUser,
   getUser,
   updateUser,

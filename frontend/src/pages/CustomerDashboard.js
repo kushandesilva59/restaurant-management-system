@@ -2,6 +2,7 @@ import axios from "axios";
 import myImage from "../assets/images/image.jpg";
 import myImage2 from "../assets/images/meal.jpg";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +19,6 @@ const CustomerDashboard = () => {
   const [values, setValues] = useState(initValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [sendAPI, setSendAPI] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,14 +29,14 @@ const CustomerDashboard = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-
     setFormErrors(validate(values));
+    const form = isFormComplete();
+    console.log(form);
     setIsSubmit(true);
-    setSendAPI(true)
 
     // check if user logged in
 
-    if (sendAPI)  {
+    if (isFormComplete()) {
       axios
         .get("http://localhost:4000/api/users/loggedin")
         .then((res) => {
@@ -44,6 +44,9 @@ const CustomerDashboard = () => {
 
           if (!res.data.valid) {
             //navigate("/customer/login");
+
+            showAlert();
+          } else {
           }
         })
         .catch((err) => console.log(err));
@@ -55,6 +58,35 @@ const CustomerDashboard = () => {
     //     console.log(res);
     //   })
     //   .catch((err) => console.log(err));
+  };
+
+    const isFormComplete = () => {
+      console.log(values)
+
+      const {specialReq, ...restFields} = values
+
+      return Object.values(restFields).every((value) => value.trim() !== "");
+    };
+
+
+  const showAlert = () => {
+    Swal.fire({
+      title: "You Should log into the system!",
+      text: "Already have an account?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I have!",
+      cancelButtonText: "No, I haven't!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        navigate("/login");
+      }else{
+        navigate('/signup')
+      }
+    });
   };
 
   const validate = (values) => {
