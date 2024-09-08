@@ -9,6 +9,7 @@ import LoginUser from "./pages/LoginUser";
 import StaffDashboard from "./pages/StaffDashboard";
 import MenuPage from "./pages/MenuPage";
 import PaymentPage from "./pages/PaymentPage";
+import Footer from "./pages/Footer";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/payment" element={<PaymentPage />} />
           </Routes>
         </div>
+        <Footer/>
       </BrowserRouter>
     </div>
   );

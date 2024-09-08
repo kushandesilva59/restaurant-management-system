@@ -168,6 +168,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0) 31.25%, #000000 78.12%);
 }
 
 .customer-page .text-wrapper>h6{
+    width: max-content;
     font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;

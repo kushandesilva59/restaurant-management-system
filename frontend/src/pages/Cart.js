@@ -1,9 +1,11 @@
 import React from "react";
 import { useCart } from "react-use-cart";
 import { useNavigate } from "react-router-dom";
-import styles from "./cart.css"
-
-
+import styles from "./cart.css";
+import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export const Cart = () => {
   const [order, setOrder] = "";
@@ -22,26 +24,79 @@ export const Cart = () => {
 
   if (isEmpty) return <h1></h1>;
 
-  const saveOrder = () => {
-   
-        const details = [];
+  const saveOrder = async () => {
+    const details = [];
 
-        for (const item of items) {
-        //   console.log(item.id);
+    for (const item of items) {
+      //   console.log(item.id);
 
-          const detail = {
-            itemName: item.title,
-            quantity: item.quantity,
-            price: item.itemTotal,
-          };
+      const detail = {
+        itemName: item.title,
+        quantity: item.quantity,
+        price: item.itemTotal,
+      };
 
-          details.push(detail);
-        }
+      details.push(detail);
+    }
 
-        console.log(items)
+    console.log(items);
+    console.log(cartTotal);
 
-      
-    ;
+    // const loggedin = await axios
+    //   .get("http://localhost:4000/api/users/loggedin")
+    //   .then((res) => {
+    //     console.log(res);
+
+    //     if (!res.data.valid) {
+    //       //navigate("/customer/login");
+    //       // toast.info("Wait...", {
+    //       //   onClose: () => {
+    //       //     showAlert();
+    //       //   },
+    //       // });
+    //     } else {
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
+
+    // console.log(loggedin);
+
+    try {
+
+      const loggedin = await axios.get(
+        "http://localhost:4000/api/users/loggedin"
+      );
+      console.log("First response:", loggedin.data);
+
+      if(loggedin.data.valid){
+        console.log('okiiii')
+      }else{
+        showAlert()
+      }
+
+    } catch (error) {
+      console.error("Error occurred:", error);
+    }
+  };
+
+  const showAlert = () => {
+    Swal.fire({
+      title: "You Should log into the system!",
+      text: "Already have an account?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I have!",
+      cancelButtonText: "No, I haven't!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        navigate("/login");
+      } else {
+        navigate("/signup");
+      }
+    });
   };
 
   return (
@@ -135,6 +190,7 @@ export const Cart = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 };

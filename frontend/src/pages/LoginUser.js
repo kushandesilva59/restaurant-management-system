@@ -17,12 +17,14 @@ const LoginUser = () => {
       .then((res) => {
         console.log(res);
 
-        if (res.data.user.role === "STAFF") {
-          console.log(res.data);
-          navigate("/staff");
-        } else if (res.data.user.role === "CUSTOMER") {
-          navigate("/");
-        } else if (res.data.user.role === "ADMIN") {
+        if (res.data.valid) {
+          if (res.data.user.role === "STAFF") {
+            console.log(res.data);
+            navigate("/staff");
+          } else if (res.data.user.role === "CUSTOMER") {
+            navigate("/");
+          } else if (res.data.user.role === "ADMIN") {
+          }
         }
       })
       .catch((err) => console.log(err));
@@ -49,14 +51,12 @@ const LoginUser = () => {
       .post("http://localhost:4000/api/users/login", {
         email: formValues.email,
         password: formValues.password,
-        role: "customer",
       })
       .then((res) => {
         console.log(res.data); // Handle the response data
 
         toast.success("Login Success", {
           onClose: () => {
-
             if (res.data.user.role === "STAFF") {
               console.log(res.data);
               navigate("/staff");

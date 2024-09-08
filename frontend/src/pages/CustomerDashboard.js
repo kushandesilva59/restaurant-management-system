@@ -47,27 +47,33 @@ const CustomerDashboard = () => {
 
             showAlert();
           } else {
+            axios
+              .post("http://localhost:4000/api/table-reservations/reserve",values)
+              .then((res) => {
+                console.log(res);
+                Swal.fire({
+                  title: "Table booking successfully!",
+                  text: "You clicked the button!",
+                  icon: "success",
+                });
+                
+              })
+              .catch((err) => console.log(err));
           }
         })
         .catch((err) => console.log(err));
     }
 
-    // axios
-    //   .post("http://localhost:4000/api/table-reservations/reserve",values)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => console.log(err));
+    
   };
 
-    const isFormComplete = () => {
-      console.log(values)
+  const isFormComplete = () => {
+    console.log(values);
 
-      const {specialReq, ...restFields} = values
+    const { specialReq, ...restFields } = values;
 
-      return Object.values(restFields).every((value) => value.trim() !== "");
-    };
-
+    return Object.values(restFields).every((value) => value.trim() !== "");
+  };
 
   const showAlert = () => {
     Swal.fire({
@@ -83,8 +89,8 @@ const CustomerDashboard = () => {
       if (result.isConfirmed) {
         //Swal.fire("Deleted!", "Your file has been deleted.", "success");
         navigate("/login");
-      }else{
-        navigate('/signup')
+      } else {
+        navigate("/signup");
       }
     });
   };
@@ -242,9 +248,9 @@ const CustomerDashboard = () => {
               </div>
 
               <div className="text-wrapper">
-                <h6>Are you looking to</h6>
-                <h5>Get Translation done?</h5>
-                <button>BOOK A TABLE</button>
+                <h6>Are you looking for</h6>
+                <h5>Breakfast</h5>
+                <button onClick={() => navigate("/menu")}>SEE MENU</button>
               </div>
             </div>
 
@@ -254,9 +260,9 @@ const CustomerDashboard = () => {
               </div>
 
               <div className="text-wrapper">
-                <h6>Are you looking to</h6>
-                <h5>Get Translation done?</h5>
-                <button>GET STARTED</button>
+                <h6>Are you looking for</h6>
+                <h5>Lunch</h5>
+                <button onClick={() => navigate("/menu")}>SEE MENU</button>
               </div>
             </div>
 
@@ -266,9 +272,9 @@ const CustomerDashboard = () => {
               </div>
 
               <div className="text-wrapper">
-                <h6>Are you looking to</h6>
-                <h5>Get Translation done?</h5>
-                <button>GET STARTED</button>
+                <h6>Are you looking for</h6>
+                <h5>Shakes</h5>
+                <button onClick={() => navigate("/menu")}>SEE MENU</button>
               </div>
             </div>
           </div>
@@ -294,7 +300,7 @@ const CustomerDashboard = () => {
               menu for our customers. But it's not just about the food – our
               ambiance, with its tranquil setting beside the Bentota River,
               offers a peaceful escape from the hustle and bustle of everyday
-              life. Come and see for yourself why Pier88 is one of the best
+              life. Come and see for yourself why ABC Restaurant is one of the best
               restaurants in Aluthgama, Sri Lanka.
             </p>
 
