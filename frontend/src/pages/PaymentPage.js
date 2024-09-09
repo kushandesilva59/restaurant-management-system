@@ -2,8 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import style from "./payment.css";
 import cardImg from "../assets/images/card_img.png";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const PaymentPage = () => {
+  const location = useLocation();
+  const { user } = location.state || {}; // Access the passed data
+
+  const { delivery } = location.state || {}; // Access the passed data
+
+    const navigate = useNavigate();
+
   const initialValues = {
     name: "",
     email: "",
@@ -21,6 +30,7 @@ const PaymentPage = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -30,7 +40,7 @@ const PaymentPage = () => {
     e.preventDefault();
     console.log(formValues);
     setFormErrors(validate(formValues));
-    setIsSubmit(true)
+    setIsSubmit(true);
     console.log(formErrors);
   };
 
@@ -77,9 +87,69 @@ const PaymentPage = () => {
   };
 
   useEffect(() => {
+    console.log(user);
+    console.log(delivery);
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
+
+      console.log("okii");
+      console.log(typeof delivery === "undefined");
+      //API CALL
+      if (typeof delivery != "undefined") {
+        console.log(delivery.total);
+        console.log(delivery.items);
+
+        const orderDetails = delivery.items.map((person, index) => {
+          return {
+            productName: person.title, // renaming or transforming keys
+            unitPrice: person.price,
+            quantity: person.quantity,
+            isAdult: person.age >= 18, // adding a new field based on logic
+            itemTotal: person.itemTotal,
+          };
+        });
+
+        console.log(orderDetails);
+
+        if (orderDetails) {
+          console.log("hariytma harii");
+
+          //after all process API call
+          axios
+            .post("http://localhost:4000/api/delivery-reservations/reserve", {
+              name: formValues.name,
+              email: formValues.email,
+              phoneNumber: "0778643245",
+              address: formValues.address,
+              city: "Colombo",
+              state: formValues.state,
+              zipCode: formValues.zipcode,
+              orderDetails: orderDetails,
+              totalPrice: delivery.total,
+            })
+            .then((res) => {
+              console.log(res.status === 200);
+
+              if (res.status === 200) {
+              
+
+                navigate("/menu", { state: { ordersaved: true } });
+                //navigate("/customer/login");
+                // toast.info("Wait...", {
+                //   onClose: () => {
+                //     showAlert();
+                //   },
+                // });
+
+                //passe mekath blnna
+                //console.log('ekath harii',res.data.valid)
+              } else {
+              }
+            })
+            .catch((err) => console.log(err));
+        }
+      }
     }
   }, [formErrors, formValues, isSubmit]);
 

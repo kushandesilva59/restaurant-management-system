@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "react-use-cart";
 import { useNavigate } from "react-router-dom";
 import styles from "./cart.css";
@@ -6,10 +6,26 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
 
 export const Cart = () => {
+
+
+  useEffect(() => {
+    console.log(ordersaved);
+
+    if(ordersaved){
+      console.log('Kushan De')
+      emptyCart()
+      navigate('/')
+    }
+  }, []);
+
+  const location = useLocation();
   const [order, setOrder] = "";
   const navigate = useNavigate();
+
+  const { ordersaved } = location.state || {}; // Access the passed data
 
   const {
     isEmpty,
@@ -42,6 +58,11 @@ export const Cart = () => {
     console.log(items);
     console.log(cartTotal);
 
+    const order = {
+      items: items,
+      total: cartTotal,
+    };
+
     // const loggedin = await axios
     //   .get("http://localhost:4000/api/users/loggedin")
     //   .then((res) => {
@@ -62,18 +83,53 @@ export const Cart = () => {
     // console.log(loggedin);
 
     try {
-
       const loggedin = await axios.get(
         "http://localhost:4000/api/users/loggedin"
       );
       console.log("First response:", loggedin.data);
 
-      if(loggedin.data.valid){
-        console.log('okiiii')
-      }else{
-        showAlert()
-      }
+      if (loggedin.data.valid) {
+        console.log("okiiii");
+        console.log(loggedin.data.user);
+        console.log(order.items);
 
+        navigate("/payment", { state: { delivery: order } });
+
+        // axios
+        //   .get("http://localhost:4000/api/delivery-reservations/reserve", {
+        //     name: "kushan",
+        //     email: "kushan@gmail.com",
+        //     phoneNumber: "0778643245",
+        //     address: "Aluthgama",
+        //     city: "Colombo",
+        //     state: "no state",
+        //     zipCode: "12080",
+        //     orderDetails: [
+        //       {
+        //         productName: "Those",
+        //         quantity: 2,
+        //         price: 120,
+        //       },
+        //     ],
+        //     totalPrice: 240,
+        //   })
+        //   .then((res) => {
+        //     console.log(res);
+
+        //     if (!res.data.valid) {
+        //       //navigate("/customer/login");
+        //       // toast.info("Wait...", {
+        //       //   onClose: () => {
+        //       //     showAlert();
+        //       //   },
+        //       // });
+        //     } else {
+        //     }
+        //   })
+        //   .catch((err) => console.log(err));
+      } else {
+        showAlert();
+      }
     } catch (error) {
       console.error("Error occurred:", error);
     }

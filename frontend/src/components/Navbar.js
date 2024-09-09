@@ -1,24 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-
- const Navbar = ()=> {
+const Navbar = () => {
   return (
-    <header>
-        <div className='container'>
-            <Link to='/'>
-                <h6>Home</h6>
-            </Link>
+    <div className="navbar nav-container">
+      <a href="/staff" className="logo">
+        FoodieApp
+      </a>
 
-             <Link to='/signup'>
-                <h6>Signup</h6>
-            </Link>
+      <div className="nav-links">
+        <a href="/table-reservations">Table Reservations</a>
+        <a href="/delivery-reservations">Delivery Reservations</a>
+        <a href="#">Services</a>
+        <a href="/menu">Menu</a>
+        <a href="/login">Staff Login</a>
+      </div>
 
-            <Link to='/login'>
-                <h6>Login</h6>
-            </Link>
-        </div>
-    </header>
-  )
-}
- export default Navbar;
+      <div className="sidebar-btn active">
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+      </div>
+    </div>
+  );
+};
+export default Navbar;
