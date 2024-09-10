@@ -20,12 +20,16 @@ const tableReservationSchema = new Schema(
       type: String,
       required: true,
     },
-    guestCount:{
-        type:Number,
-        required: true
+    guestCount: {
+      type: Number,
+      required: true,
     },
     specialReq: {
       type: String,
+    },
+    orderComplete: {
+      type: Boolean,
+      required: true,
     },
   },
   { timestamps: true }

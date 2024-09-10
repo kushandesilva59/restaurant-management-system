@@ -12,10 +12,11 @@ const orderDetailSchema = new Schema(
       type: Number,
       required: true,
     },
-    price: {
+    unitPrice: {
       type: Number,
       required: true,
     },
+
   },
   { _id: false }
 );
@@ -58,6 +59,10 @@ const deliveryReservationSchema = new Schema(
     totalPrice:{
         type:Number,
         required:true
+    },
+    orderComplete:{
+      type:Boolean,
+      required:true
     }
   },
   { timestamps: true }

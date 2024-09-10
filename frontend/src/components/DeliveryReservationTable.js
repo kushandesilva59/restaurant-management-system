@@ -1,78 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import "./TableComponent.css"; // Import the CSS file
-// import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-// const DeliveryReservationTable = ({ users }) => {
-//   const [modal, setModal] = useState(false);
-
-//   const toggle = () => setModal(!modal);
-
-//   useEffect(() => {
-//     console.log(users);
-//   }, [users]);
-
-//   function handleEdit(row) {
-//     console.log("Edit row:", row);
-//   }
-
-//   // Safeguard in case users is undefined or not an array
-//   if (!Array.isArray(users)) {
-//     return <div>No data available</div>;
-//   }
-
-//   return (
-//     <table className="styled-table">
-//       <thead>
-//         <tr>
-//           <th>Username</th>
-//           <th>Email</th>
-//           <th>Phone Number</th>
-//           <th>Address</th>
-//           <th>Total Price</th>
-//           <th>Option</th>
-//         </tr>
-//       </thead>
-//       <tbody>
-//         {users.map((row, index) => (
-//           <tr key={index}>
-//             <td>{row.name}</td>
-//             <td>{row.email}</td>
-//             <td>{row.phoneNumber}</td>
-//             <td>{row.address}</td>
-//             <td>${row.totalPrice}</td>
-//             <td>
-//               <button onClick={() => handleEdit(row)}>View Details</button>
-//             </td>
-//           </tr>
-//         ))}
-//       </tbody>
-
-//       <Modal isOpen={modal} toggle={toggle}>
-//         <ModalHeader toggle={toggle}>Modal Title</ModalHeader>
-//         <ModalBody>
-//             <h6>Order Details</h6>
-
-//         </ModalBody>
-//         <ModalFooter>
-//           <Button color="secondary" onClick={toggle}>
-//             Close
-//           </Button>
-//           <Button color="primary" onClick={toggle}>
-//             Save Changes
-//           </Button>
-//         </ModalFooter>
-//       </Modal>
-
-//       <Button color="primary" onClick={toggle}>
-//         Open Modal
-//       </Button>
-//     </table>
-//   );
-// };
-
-// export default DeliveryReservationTable;
-
 import React, { useState, useEffect } from "react";
 import "./TableComponent.css";
 import {
@@ -85,6 +10,10 @@ import {
   FormGroup,
   Label,
   Input,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -98,6 +27,26 @@ const DeliveryReservationTable = ({ users }) => {
     address: "",
     totalPrice: "",
   });
+  const [editedOrderValues, setEditedOrderValues] = useState({
+    productName: "",
+    quantity: "",
+  });
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(
+    formData.status || "Select meals"
+  );
+  const [statusOptions, setStatusOptions] = useState([]);
+  const [quantity, setQuantity] = useState([]);
+
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  // const handleStatusSelect = (item) => {
+  //   console.log(item.quantity);
+  //   setSelectedStatus(item.productName);
+  //   setQuantity(item.quantity);
+  //   handleChange({ target: { name: "status", value: item.productName } }); // Update formData
+  // };
 
   const toggle = () => setModal(!modal);
 
@@ -114,8 +63,38 @@ const DeliveryReservationTable = ({ users }) => {
     }
   }, [selectedRow]);
 
+  const editQuantity = (event) => {
+    const { name, value } = event.target;
+    console.log(name, value);
+
+    setStatusOptions((prevStatusOptions) =>
+      prevStatusOptions.map((item) =>
+        item.productName === name
+          ? { ...item, quantity: parseInt(value, 10) || 0 } // Update quantity for matching productName
+          : item
+      )
+    );
+  };
+
   function handleEdit(row) {
     setSelectedRow(row);
+    console.log(row.orderDetails);
+
+    const newArray = row.orderDetails.map((item) => ({
+      productName: item.productName,
+      quantity: item.quantity,
+    }));
+
+    console.log(newArray);
+    setStatusOptions(newArray);
+
+    // const statuses = new Set(
+    //   row.orderDetails.map((orderDetail) => orderDetail.productName)
+    // );
+    // setStatusOptions(Array.from(statuses));
+
+    // console.log(statusOptions);
+
     toggle(); // Open modal when a row is selected
   }
 
@@ -131,6 +110,7 @@ const DeliveryReservationTable = ({ users }) => {
     event.preventDefault();
     // Handle form submission (e.g., update the user data)
     console.log("Updated data:", formData);
+    console.log('Updated Order details : ',statusOptions)
     toggle(); // Close the modal after submission
   }
 
@@ -214,6 +194,67 @@ const DeliveryReservationTable = ({ users }) => {
                 onChange={handleChange}
               />
             </FormGroup>
+
+            <div className="d-flex justify-content-between">
+              <FormGroup>
+                <Label for="status">Order Details</Label>
+                {/* <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+                  <DropdownToggle caret>{selectedStatus}</DropdownToggle>
+                  <DropdownMenu>
+                   
+                    {statusOptions.map((item, index) => (
+                      <DropdownItem
+                        key={index}
+                        onClick={() => handleStatusSelect(item)}
+                      >
+                        {item.productName}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </Dropdown> */}
+
+                {statusOptions.map((item, index) => (
+                  <div key={index}>
+                    {item.productName}
+
+                    <Input
+                      type="number"
+                      id="qty"
+                      name={`${item.productName}`}
+                      // value={item.quantity}
+                      value={item.quantity !== undefined ? item.quantity : 0}
+                      onChange={editQuantity}
+                    />
+                  </div>
+                ))}
+
+                {statusOptions.map((item, index) => (
+                  <div key={index}>
+                    <Label>{item.productName}</Label>
+                    <Input
+                      type="number"
+                      name={item.productName} // Dynamically set the name to productName
+                      value={item.quantity !== undefined ? item.quantity : 0} // Handle undefined quantities
+                      onChange={editQuantity} // Update quantity on change
+                    />
+                  </div>
+                ))}
+              </FormGroup>
+              <FormGroup>
+                <Label for="name">Quantity</Label>
+                <Input
+                  type="number"
+                  id="qty"
+                  name="qty"
+                  value={
+                    editedOrderValues.quantity
+                      ? editedOrderValues.quantity
+                      : quantity
+                  }
+                  onChange={handleChange}
+                />
+              </FormGroup>
+            </div>
             <FormGroup>
               <Label for="totalPrice">Total Price</Label>
               <Input

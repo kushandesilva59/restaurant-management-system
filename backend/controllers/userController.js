@@ -26,7 +26,6 @@ const signup = async (req, res) => {
         confirmPassword,
       });
 
-      
       res.status(200).json({ user: user });
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -101,19 +100,20 @@ const login = async (req, res) => {
 
   const user = await User.findOne({ email: email });
 
-  if (user) {
-    // req.session.username = user.username;
-    // req.session.email = user.email;
-
-    req.session.user = user;
-
-    return res.status(200).json({ Login: true, user: user });
-  } else {
+  if (!user) {
     return res
       .status(400)
-      .json({ Login: false, message: "user not found!..." });
-    //return res.status(200).json("User not found");
+      .json({ Login: false, message: "User not found!..." });
   }
+
+  if (password !== user.password) {
+    return res
+      .status(400)
+      .json({ Login: false, message: "Invalid credentials!" });
+  }
+
+  req.session.user = user;
+  return res.status(200).json({ Login: true, user: user });
 };
 
 const loggedin = async (req, res) => {

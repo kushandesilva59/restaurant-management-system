@@ -98,9 +98,9 @@ const SignupUser = () => {
   };
 
   return (
-    <div className="signup-wrapper">
+    <div className="d-flex">
       <div className="bgImg"></div>
-      <div className="container">
+      <div className="container bg-white p-3 rounded w-25">
         {Object.keys(formErrors).length === 0 && isSubmit ? (
           <div className="ui message success">Signed in successfully</div>
         ) : (
@@ -109,9 +109,9 @@ const SignupUser = () => {
 
         <form onSubmit={handleSubmit}>
           <h1>Sign Up</h1>
-          <div className="ui divider"></div>
+
           <div className="ui form">
-            <div className="field">
+            <div className="field mb-3">
               <label>Username</label>
               <input
                 type="text"
@@ -119,10 +119,11 @@ const SignupUser = () => {
                 placeholder="Choose a username"
                 value={formValues.username}
                 onChange={handleChange}
+                className="form-control rounded-0"
               />
             </div>
             <p>{formErrors.username}</p>
-            <div className="field">
+            <div className="field mb-3">
               <label>Email</label>
               <input
                 type="text"
@@ -130,10 +131,11 @@ const SignupUser = () => {
                 placeholder="Email"
                 value={formValues.email}
                 onChange={handleChange}
+                className="form-control rounded-0"
               />
             </div>
             <p>{formErrors.email}</p>
-            <div className="field">
+            <div className="field mb-3">
               <label>Password</label>
               <input
                 type="password"
@@ -141,10 +143,11 @@ const SignupUser = () => {
                 placeholder="Password"
                 value={formValues.password}
                 onChange={handleChange}
+                className="form-control rounded-0"
               />
             </div>
             <p>{formErrors.password}</p>
-            <div className="field">
+            <div className="field mb-3">
               <label>Confirm Password</label>
               <input
                 type="password"
@@ -152,6 +155,7 @@ const SignupUser = () => {
                 placeholder="Confirm password"
                 value={formValues.confirmPassword}
                 onChange={handleChange}
+                className="form-control rounded-0"
               />
             </div>
             <p>{formErrors.confirmPassword}</p>
@@ -162,6 +166,7 @@ const SignupUser = () => {
                 name="role"
                 value="CUSTOMER"
                 onChange={handleChange}
+             
               />
               Customer
             </label>
@@ -172,6 +177,7 @@ const SignupUser = () => {
                 name="role"
                 value="STAFF"
                 onChange={handleChange}
+               
               />
               Staff
             </label>

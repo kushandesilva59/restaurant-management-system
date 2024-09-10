@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Nawbar from "./components/Nawbar";
-import Login from "./pages/Login";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import SignupUser from "./pages/SignupUser";
 import LoginUser from "./pages/LoginUser";
@@ -36,7 +35,7 @@ function App() {
               element={<DeliveryReservations />}
             />
 
-            <Route path="/destination" element={<Test/>}/>
+            <Route path="/destination" element={<Test />} />
           </Routes>
         </div>
         <Footer />

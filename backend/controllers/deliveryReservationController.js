@@ -17,7 +17,7 @@ const getDeliveryReservations = async (req, res) => {
 };
 
 const createDeliveryReservation = async (req, res) => {
-  const { name, email, phoneNumber, address, city, state, zipCode, orderDetails, totalPrice } = req.body;
+  const { name, email, phoneNumber, address, city, state, zipCode, orderDetails, totalPrice, orderComplete } = req.body;
 
   // const reservation = await TableReservation.findOne({ email: email });
 
@@ -32,6 +32,7 @@ const createDeliveryReservation = async (req, res) => {
       zipCode,
       orderDetails,
       totalPrice,
+      orderComplete,
     });
     res.status(200).json(reservation);
   } catch (error) {

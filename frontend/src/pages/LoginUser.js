@@ -13,11 +13,15 @@ import { ToastContainer, toast } from "react-toastify";
 const LoginUser = () => {
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/users/loggedin")
+      .get("http://localhost:4000/api/users/loggedin", {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res);
 
         if (res.data.valid) {
+          console.log(res.data.user.role === "CUSTOMER");
+
           if (res.data.user.role === "STAFF") {
             console.log(res.data);
             navigate("/staff");
@@ -59,6 +63,7 @@ const LoginUser = () => {
           onClose: () => {
             if (res.data.user.role === "STAFF") {
               console.log(res.data);
+
               navigate("/staff");
             } else if (res.data.user.role === "CUSTOMER") {
               navigate("/");

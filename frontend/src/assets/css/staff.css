@@ -1,0 +1,14 @@
+.staff-main{
+    background-color: antiquewhite;
+    display: flex;
+}
+
+.staff-box{
+    width: 100%;
+    cursor: pointer;
+
+}
+
+.staff-box:nth-child(2){
+    background-color: aliceblue;
+}

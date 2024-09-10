@@ -15,6 +15,7 @@ const CustomerDashboard = () => {
     time: "",
     guestCount: "",
     specialReq: "",
+    orderComplete: false,
   };
 
   const [values, setValues] = useState(initValues);
@@ -32,8 +33,8 @@ const CustomerDashboard = () => {
 
   const handleSubmit = () => {
     setFormErrors(validate(values));
-    const form = isFormComplete();
-    console.log(form);
+    // const form = isFormComplete();
+    // console.log(form);
     setIsSubmit(true);
 
     // check if user logged in
@@ -75,7 +76,12 @@ const CustomerDashboard = () => {
 
     const { specialReq, ...restFields } = values;
 
-    return Object.values(restFields).every((value) => value.trim() !== "");
+    return Object.values(restFields).every((value) => {
+      if (typeof value === "string") {
+        return value.trim() !== ""; // For strings, check if they are not empty
+      }
+      return value !== null && value !== undefined && value !== ""; // For other types, check if they are not null, undefined, or an empty string
+    });
   };
 
   const showAlert = () => {
@@ -123,6 +129,27 @@ const CustomerDashboard = () => {
   };
 
   useEffect(() => {
+
+    axios
+      .get("http://localhost:4000/api/users/loggedin", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+
+        if (res.data.valid) {
+          if (res.data.user.role === "STAFF") {
+            console.log(res.data);
+            navigate("/staff");
+          } else if (res.data.user.role === "CUSTOMER") {
+            navigate("/");
+          } else if (res.data.user.role === "ADMIN") {
+          }
+        }
+      })
+      .catch((err) => console.log(err));
+
+
     const today = new Date().toISOString().split("T")[0];
     setMinDate(today);
     console.log(formErrors);
@@ -130,7 +157,7 @@ const CustomerDashboard = () => {
       console.log(initValues);
 
       axios
-        .get("http://localhost:4000/api/users/loggedin")
+        .get("http://localhost:4000/api/users/loggedin",{ withCredentials: true })
         .then((res) => {
           console.log(res);
 
@@ -143,22 +170,9 @@ const CustomerDashboard = () => {
               name: "John Doe",
               email: "john@example.com",
             };
-            console.log()
-            navigate("/payment", { state: { user: values } });
-            // axios
-            //   .post(
-            //     "http://localhost:4000/api/table-reservations/reserve",
-            //     values
-            //   )
-            //   .then((res) => {
-            //     console.log(res);
-            //     Swal.fire({
-            //       title: "Table booking successfully!",
-            //       text: "You clicked the button!",
-            //       icon: "success",
-            //     });
-            //   })
-            //   .catch((err) => console.log(err));
+            console.log();
+            navigate("/payment", { state: { tablebook: values } });
+           
           }
         })
         .catch((err) => console.log(err));

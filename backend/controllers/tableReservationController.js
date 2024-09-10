@@ -15,7 +15,15 @@ const getTableReservations = async (req, res) => {
 };
 
 const createReservation = async (req, res) => {
-  const { date, username, time, userEmail, guestCount, specialReq } = req.body;
+  const {
+    date,
+    username,
+    time,
+    userEmail,
+    guestCount,
+    specialReq,
+    orderComplete,
+  } = req.body;
 
   // const reservation = await TableReservation.findOne({ email: email });
 
@@ -27,6 +35,7 @@ const createReservation = async (req, res) => {
       guestCount,
       userEmail,
       specialReq,
+      orderComplete
     });
     res.status(200).json(reservation);
   } catch (error) {

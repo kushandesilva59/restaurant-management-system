@@ -4,14 +4,16 @@ import style from "./payment.css";
 import cardImg from "../assets/images/card_img.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 const PaymentPage = () => {
   const location = useLocation();
-  const { user } = location.state || {}; // Access the passed data
+  const { tablebook } = location.state || {}; // Access the passed data
 
   const { delivery } = location.state || {}; // Access the passed data
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const initialValues = {
     name: "",
@@ -29,7 +31,6 @@ const PaymentPage = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,7 +88,7 @@ const PaymentPage = () => {
   };
 
   useEffect(() => {
-    console.log(user);
+    console.log(tablebook);
     console.log(delivery);
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -127,13 +128,12 @@ const PaymentPage = () => {
               zipCode: formValues.zipcode,
               orderDetails: orderDetails,
               totalPrice: delivery.total,
+              orderComplete: false,
             })
             .then((res) => {
               console.log(res.status === 200);
 
               if (res.status === 200) {
-              
-
                 navigate("/menu", { state: { ordersaved: true } });
                 //navigate("/customer/login");
                 // toast.info("Wait...", {
@@ -149,6 +149,29 @@ const PaymentPage = () => {
             })
             .catch((err) => console.log(err));
         }
+      }else if (typeof tablebook != "undefined") {
+        console.log(tablebook);
+
+        axios
+          .post(
+            "http://localhost:4000/api/table-reservations/reserve",
+            tablebook
+          )
+          .then((res) => {
+            console.log(res)
+    
+            Swal.fire({
+              title: "Table booking successfully!",
+              text: "Table will be reserved!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                 navigate("/");
+              }
+            });
+          })
+          .catch((err) => console.log(err));
       }
     }
   }, [formErrors, formValues, isSubmit]);
